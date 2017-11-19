@@ -1,4 +1,5 @@
-/*  Utlimate Jay Mega Gulpfile */
+/* Utlimate Jay Mega Gulpfile */
+/* jshint node: true */
 
 (function () {
     "use strict";
@@ -19,7 +20,9 @@
         replace = require("gulp-replace"),
         gsync   = require("gulp-sync"),
         sync    = gsync(gulp).sync;
-
+        // TODO: 
+        // Use gulp-load-plugins
+        
     var version = yargs.argv.type || "patch";
 
     var settings = {
@@ -193,6 +196,7 @@
         settings.banner.vars.pkg = getPackageJson();
 
         return gulp.src(settings.files.in)
+            .pipe(header(settings.banner.content, settings.banner.vars ))
             .pipe(uglify(settings.files.out + '.min.js', {
                 enclose: settings.enclose,
                 compress: {
@@ -205,7 +209,10 @@
     });
 
     gulp.task("beautify", function () {
+        settings.banner.vars.pkg = getPackageJson();
+
         return gulp.src(settings.files.in)
+            .pipe(header(settings.banner.content, settings.banner.vars ))
             .pipe(uglify(settings.files.out + '.js', {
                 enclose: settings.enclose,
                 compress: {
@@ -219,13 +226,13 @@
             .pipe(gulp.dest('./dist/'));
     });
 
-    gulp.task("header", function () {
-        settings.banner.vars.pkg = getPackageJson();
+    // gulp.task("header", function () {
+    //     settings.banner.vars.pkg = getPackageJson();
 
-        return gulp.src('./dist/*.js')
-            .pipe(header(settings.banner.content, settings.banner.vars ))
-            .pipe(gulp.dest('./dist/'));
-    });
+    //     return gulp.src('./dist/*.js')
+    //         .pipe(header(settings.banner.content, settings.banner.vars ))
+    //         .pipe(gulp.dest('./dist/'));
+    // });
 
     gulp.task("gh-pages", function (cb) {
         version = getPackageJson().version;
@@ -241,9 +248,19 @@
                 'git add -A releases/latest',
                 'git commit -m "Publish release v' + version + '."',
                 'git push origin gh-pages',
-                'git checkout -'
+                'git checkout -',
             ].join(" && "),
             function (err, output, code) {
+                if (code !== 0) {
+                    return cb(err + output);
+                }
+                return cb();
+            }
+        );
+    });
+
+    gulp.task("npm-publish", function (cb) {
+        exec('npm publish', function (err, output, code) {
                 if (code !== 0) {
                     return cb(err + output);
                 }
@@ -264,7 +281,6 @@
         "clean", 
         "beautify", 
         "uglify",
-        "header",
         "test-dist"
     ], 
     "building"));
@@ -279,13 +295,13 @@
         "clean",
         "beautify",
         "uglify",
-        "header",
         "test-dist",
         "git-add",
         "git-commit",
         "git-tag",
         "git-push",
-        "publish"
+        "publish",
+        "npm-publish"
     ], 
     "releasing"));
 

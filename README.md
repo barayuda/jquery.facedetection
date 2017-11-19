@@ -1,7 +1,7 @@
 jQuery Face Detection Plugin
 ============================
 
-[![Build Status](https://travis-ci.org/jaysalvat/jquery.facedetection.png?branch=master)](https://travis-ci.org/jaysalvat/{{project}})
+[![Build Status](https://travis-ci.org/jaysalvat/jquery.facedetection.png?branch=master)](https://travis-ci.org/jaysalvat/https://travis-ci.org/jaysalvat/jquery.facedetection)
 [![NPM version](https://badge.fury.io/js/jquery.facedetection.svg)](http://badge.fury.io/js/jquery.facedetection)
 [![Bower version](https://badge.fury.io/bo/jquery.facedetection.svg)](http://badge.fury.io/bo/jquery.facedetection)
 
@@ -21,7 +21,7 @@ Get started
 
 Download the plugin with the method of your choice.
 
-- Download the [last release](jaysalvat.github.io/jquery.facedetection/releases/latest/jquery.facedetection.zip) manually
+- Download the [last release](http://jaysalvat.github.io/jquery.facedetection/releases/latest/jquery.facedetection.zip) manually
 - Or install it with [Bower](http://bower.io/).
 
         bower install jquery.facedetection
@@ -30,10 +30,10 @@ Download the plugin with the method of your choice.
 
         npm install jquery.facedetection
 
-Include [jQuery](http://code.jquery.com/jquery-1.11.1.min.js) and the plugin.
+Include [jQuery](https://code.jquery.com/jquery-3.2.1.min.js) and the plugin.
 
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
-    <script src="path/to/dist/jquery.facedetection.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="path/to/dist/jquery.facedetection.min.js"></script>
 
 Set a picture with some faces in your HTML page.
 
@@ -47,14 +47,14 @@ Apply the plugin to this image and get the face coordinates.
                 console.log(faces);
             }
         });
-    </script> 
+    </script>
 
 Results
 -------
 
 Returns an array of found faces object:
 
-- **x** — Y coord of the face in the picture
+- **x** — X coord of the face in the picture
 - **y** — Y coord of the face in the picture
 - **width** — Width of the face
 - **height** — Height of the face
@@ -78,10 +78,9 @@ Settings
         complete: function (faces) {
             // ...
         }
-    
+
 - **error** — Callback function trigged on errors
 
         error: function (code, message) {
             // ...
         }
-        

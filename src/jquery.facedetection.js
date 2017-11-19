@@ -1,9 +1,9 @@
 /*
 FaceDetection jQuery Plugin
-Copyright (c) 2014 Jay Salvat
+Copyright (c) 2016 Jay Salvat
 */
 
-/* global $:true, ccv:true, cascade:true */
+/* global $, ccv, cascade */
 
 $.fn.faceDetection = function (settingsOrCallback) {
     "use strict";
@@ -48,6 +48,7 @@ $.fn.faceDetection = function (settingsOrCallback) {
             if ($$.is('img')) {
                 source = new Image();
                 source.src = $$.attr('src');
+                source.crossOrigin = $$.attr('crossorigin');
 
                 canvas = ccv.pre(source);
             } else if ($$.is('video') || $$.is('canvas')) {
